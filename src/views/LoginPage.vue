@@ -26,6 +26,7 @@
 import Vue from "vue";
 import axios from "axios";
 import BaseForm from "@/components/bases/BaseForm.vue";
+import { UserState } from "@/store/index";
 
 export default Vue.extend({
   name: "LoginPage",
@@ -40,15 +41,16 @@ export default Vue.extend({
         (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
   }),
+  computed: {
+    userState(): UserState {
+      return this.$store.state;
+    },
+  },
   methods: {
     createUser(): void {
       if (this.isValid()) {
-        console.log("Hello");
-        this.resetForm();
-        this.resetValidation();
         const data = {
           name: this.name,
-          auth: { username: "1", password: "pass" },
         };
         const useAxios = axios.create({
           auth: {
@@ -56,13 +58,18 @@ export default Vue.extend({
             password: "pass",
           },
         });
+        this.$store.commit("setUserName", this.name);
         try {
           useAxios
             .post("/user/create", data)
-            .then((response) => console.log(response.data));
+            .then((response) =>
+              this.$store.commit("setUserToken", response.data.token as string)
+            );
         } catch (error) {
           alert(error);
         }
+        this.resetForm();
+        this.resetValidation();
       }
     },
     isValid(): boolean {
