@@ -1,6 +1,11 @@
 <template>
   <v-container>
-    <v-data-table :headers="headers" :items="items" hide-default-footer>
+    <v-data-table
+      :headers="headers"
+      :items="items"
+      hide-default-footer
+      :style="{ width: '400px' }"
+    >
       <template v-slot:[`item.icon`]="{ item }">
         <img :src="item.icon" style="width: 50px; height: 50px" />
       </template>
