@@ -1,7 +1,10 @@
 <template>
   <div>
     <AppBar />
-    <CharaTable :items="items" />
+    <center class="mt-5">
+      <h1>所持しているキャラ</h1>
+      <CharaTable :items="items" />
+    </center>
   </div>
 </template>
 
