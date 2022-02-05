@@ -30,7 +30,7 @@ export default Vue.extend({
     pushItem(index: number): void {
       switch (index) {
         case 0:
-          // this.$router.push({name: "EditName"})
+          this.$router.push({ name: "EditName" });
           break;
         case 1:
           this.$router.push({ name: "Login" });

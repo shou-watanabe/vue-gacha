@@ -1,8 +1,9 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/HomePage.vue";
-import Login from "../views/LoginPage.vue";
-import Gacha from "../views/GachaPage.vue";
+import HomePage from "../views/HomePage.vue";
+import LoginPage from "../views/LoginPage.vue";
+import GachaPage from "../views/GachaPage.vue";
+import EditNamePage from "../views/EditNamePage.vue";
 
 Vue.use(VueRouter);
 
@@ -10,17 +11,22 @@ const routes: Array<RouteConfig> = [
   {
     path: "/login",
     name: "Login",
-    component: Login,
+    component: LoginPage,
   },
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: HomePage,
   },
   {
     path: "/gacha",
     name: "Gacha",
-    component: Gacha,
+    component: GachaPage,
+  },
+  {
+    path: "/edit/name",
+    name: "EditName",
+    component: EditNamePage,
   },
 ];
 
