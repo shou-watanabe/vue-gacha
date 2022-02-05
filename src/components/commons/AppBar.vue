@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app color="primary" dark>
-    <div class="d-flex align-center">
+    <div class="d-flex align-center" @click="moveHome">
       <v-img
         alt="Vuetify Logo"
         class="shrink mr-2"
@@ -18,10 +18,12 @@
 
     <v-spacer />
 
-    <v-btn icon @click="moveGacha">
-      <v-icon>mdi-pokeball</v-icon>
-    </v-btn>
-    <SettingMenu />
+    <div v-if="!isLoginPage">
+      <v-btn icon @click="moveGacha">
+        <v-icon>mdi-pokeball</v-icon>
+      </v-btn>
+      <SettingMenu />
+    </div>
   </v-app-bar>
 </template>
 
@@ -38,11 +40,21 @@ export default Vue.extend({
     userName(): string {
       return this.$store.state.name;
     },
+    isLoginPage(): boolean {
+      return this.$router.currentRoute.name === "Login";
+    },
   },
   methods: {
     moveGacha(): void {
       if (this.$router.currentRoute.name !== "Gacha")
         this.$router.push({ name: "Gacha" });
+    },
+    moveHome(): void {
+      if (
+        this.$router.currentRoute.name !== "Home" &&
+        this.$router.currentRoute.name !== "Login"
+      )
+        this.$router.push({ name: "Home" });
     },
   },
 });
