@@ -41,7 +41,6 @@ export default Vue.extend({
   },
   methods: {
     gachaDraw(times: number): void {
-      console.log(times);
       const useAxios = axios.create({
         auth: {
           username: "1",
