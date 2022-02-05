@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppBar />
     <v-container>
       <v-row justify="center" class="align-center" style="height: 450px">
         <BaseForm ref="form">
@@ -26,12 +27,14 @@
 import Vue from "vue";
 import axios from "axios";
 import BaseForm from "@/components/bases/BaseForm.vue";
+import AppBar from "@/components/commons/AppBar.vue";
 import { UserState } from "@/store/index";
 
 export default Vue.extend({
   name: "LoginPage",
   components: {
     BaseForm,
+    AppBar,
   },
   data: () => ({
     name: "",
