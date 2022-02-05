@@ -9,12 +9,12 @@
         transition="scale-transition"
         width="40"
       />
-      <div>Gopher Quest</div>
+      <h2>Gopher Quest</h2>
     </div>
 
     <v-spacer />
 
-    <div style="margin-right: 56px">{{ userName }}</div>
+    <h1 style="margin-right: 56px">{{ userName }}</h1>
 
     <v-spacer />
 
