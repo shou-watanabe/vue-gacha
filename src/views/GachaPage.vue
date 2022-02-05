@@ -62,7 +62,6 @@ export default Vue.extend({
       useAxios
         .post("/gacha/draw", { times: parseInt(this.times) })
         .then((res) => {
-          console.log(res.data);
           if (res.data["results"] != null) {
             this.makeTableItems(res.data["results"]);
           }

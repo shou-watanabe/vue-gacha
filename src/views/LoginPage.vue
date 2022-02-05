@@ -28,8 +28,6 @@ import Vue from "vue";
 import axios from "axios";
 import BaseForm from "@/components/bases/BaseForm.vue";
 import AppBar from "@/components/commons/AppBar.vue";
-import { UserState } from "@/store/index";
-
 export default Vue.extend({
   name: "LoginPage",
   components: {
@@ -44,17 +42,9 @@ export default Vue.extend({
         (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
   }),
-  computed: {
-    userState(): UserState {
-      return this.$store.state;
-    },
-  },
   methods: {
     createUser(): void {
       if (this.isValid()) {
-        const data = {
-          name: this.name,
-        };
         const useAxios = axios.create({
           auth: {
             username: "1",
@@ -63,10 +53,12 @@ export default Vue.extend({
         });
         this.$store.commit("setUserName", this.name);
         try {
-          useAxios.post("/user/create", data).then((response) => {
-            this.$store.commit("setUserToken", response.data.token as string);
-            this.$router.push({ name: "Home" });
-          });
+          useAxios
+            .post("/user/create", { name: this.name })
+            .then((response) => {
+              this.$store.commit("setUserToken", response.data.token as string);
+              this.$router.push({ name: "Home" });
+            });
         } catch (error) {
           alert(error);
         }
