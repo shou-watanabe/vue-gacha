@@ -63,11 +63,10 @@ export default Vue.extend({
         });
         this.$store.commit("setUserName", this.name);
         try {
-          useAxios
-            .post("/user/create", data)
-            .then((response) =>
-              this.$store.commit("setUserToken", response.data.token as string)
-            );
+          useAxios.post("/user/create", data).then((response) => {
+            this.$store.commit("setUserToken", response.data.token as string);
+            this.$router.push({ name: "Home" });
+          });
         } catch (error) {
           alert(error);
         }

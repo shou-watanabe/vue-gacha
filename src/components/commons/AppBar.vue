@@ -12,13 +12,16 @@
       <div>Gopher Quest</div>
     </div>
 
-    <v-spacer></v-spacer>
+    <v-spacer />
 
-    <v-btn
-      href="https://github.com/vuetifyjs/vuetify/releases/latest"
-      target="_blank"
-      text
-    >
+    <div style="margin-right: 56px">{{ userName }}</div>
+
+    <v-spacer />
+
+    <v-btn icon @click="moveGacha">
+      <v-icon>mdi-pokeball</v-icon>
+    </v-btn>
+    <v-btn icon>
       <v-icon>mdi-wrench</v-icon>
     </v-btn>
   </v-app-bar>
@@ -29,5 +32,16 @@ import Vue from "vue";
 
 export default Vue.extend({
   name: "AppBar",
+  computed: {
+    userName(): string {
+      return this.$store.state.name;
+    },
+  },
+  methods: {
+    moveGacha(): void {
+      if (this.$router.currentRoute.name !== "Gacha")
+        this.$router.push({ name: "Gacha" });
+    },
+  },
 });
 </script>
