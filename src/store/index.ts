@@ -15,6 +15,10 @@ const mutaions = {
   setUserToken(state: UserState, token: string): void {
     state.token = token;
   },
+  initUser(state: UserState): void {
+    state.name = "";
+    state.token = "";
+  },
 };
 
 export default new Vuex.Store({

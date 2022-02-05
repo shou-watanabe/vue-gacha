@@ -21,17 +21,19 @@
     <v-btn icon @click="moveGacha">
       <v-icon>mdi-pokeball</v-icon>
     </v-btn>
-    <v-btn icon>
-      <v-icon>mdi-wrench</v-icon>
-    </v-btn>
+    <SettingMenu />
   </v-app-bar>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import SettingMenu from "@/components/commons/SettingMenu.vue";
 
 export default Vue.extend({
   name: "AppBar",
+  components: {
+    SettingMenu,
+  },
   computed: {
     userName(): string {
       return this.$store.state.name;
