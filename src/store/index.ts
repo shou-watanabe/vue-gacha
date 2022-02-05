@@ -13,7 +13,6 @@ const mutaions = {
     state.name = name;
   },
   setUserToken(state: UserState, token: string): void {
-    console.log(token);
     state.token = token;
   },
 };
