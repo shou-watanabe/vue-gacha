@@ -3,22 +3,12 @@
     <AppBar />
     <v-container>
       <v-row justify="center" class="align-center">
-        <v-text-field
-          label="回数"
-          :style="{ maxWidth: '200px' }"
-          v-model="times"
-          type="number"
-          suffix="回"
-        />
-        <v-btn @click="gachaDraw">ガチャる</v-btn>
+        <GachaForm @emit-gacha-draw="gachaDraw" />
       </v-row>
       <v-row justify="center" class="align-center">
         <div v-if="items.length !== 0">
           <CharaTable :items="items" />
         </div>
-      </v-row>
-      <v-row justify="center" class="align-center">
-        <v-btn @click="moveHome">ホームに戻る</v-btn>
       </v-row>
     </v-container>
   </div>
@@ -29,6 +19,7 @@ import Vue from "vue";
 import axios from "axios";
 import AppBar from "@/components/commons/AppBar.vue";
 import CharaTable from "@/components/commons/CharaTable.vue";
+import GachaForm from "@/components/gacha/GachaForm.vue";
 import { Item } from "@/types/item";
 
 export default Vue.extend({
@@ -36,6 +27,7 @@ export default Vue.extend({
   components: {
     AppBar,
     CharaTable,
+    GachaForm,
   },
   computed: {
     userToken(): string {
@@ -45,11 +37,11 @@ export default Vue.extend({
   data() {
     return {
       items: [] as Array<Item>,
-      times: "",
     };
   },
   methods: {
-    gachaDraw(): void {
+    gachaDraw(times: number): void {
+      console.log(times);
       const useAxios = axios.create({
         auth: {
           username: "1",
@@ -59,13 +51,11 @@ export default Vue.extend({
           "x-token": this.userToken,
         },
       });
-      useAxios
-        .post("/gacha/draw", { times: parseInt(this.times) })
-        .then((res) => {
-          if (res.data["results"] != null) {
-            this.makeTableItems(res.data["results"]);
-          }
-        });
+      useAxios.post("/gacha/draw", { times: times }).then((res) => {
+        if (res.data["results"] != null) {
+          this.makeTableItems(res.data["results"]);
+        }
+      });
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     makeTableItems(res: Array<any>): void {
@@ -76,9 +66,6 @@ export default Vue.extend({
           rarity: item["rarity"],
         } as Item;
       });
-    },
-    moveHome(): void {
-      this.$router.push({ name: "Home" });
     },
   },
 });
